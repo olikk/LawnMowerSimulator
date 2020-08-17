@@ -29,19 +29,22 @@ The mowers are programmed using an input file constructed in the following manne
 The first line corresponds to the upper right corner of the lawn. The bottom left corner is
 implicitly (0, 0).
 
+# Implementation choices
+
+The logic is the following: we have a lawn of limited size that can indicate whether a position is occupied by a mower instance or not.
+We have several mowers each aware of their position in the lawn (expressed in coordinates (x,y)) and depending on the instructions they can change their position if it's allowed. 
+The lawn is represented by a grid of cells that can be occupied or not. The access to its cells is thread-safe. 
+When the mower thread finished all its instructions, it waits for others to terminate and then the program is finished.
+The instructions are parsed from the input file, mower and lawn instances are then created accordingly.
+
 # Example Input file
 
 ```Text
-Example
-Input file
 5 5
 1 2 N
 LFLFLFLFF
 3 3 E
 FFRFFRFRRF
-Result
-1 3 N
-5 1 E
 ```
 
 # Requirements
